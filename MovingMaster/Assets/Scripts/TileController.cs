@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class TileController : MonoBehaviour
 {
-    List<GameObject> containFurniture = new List<GameObject>();
+    //List<GameObject> containFurniture = new List<GameObject>();
 
+    List<FurnitureController> containFurniture = new List<FurnitureController>();
 
+    //public void InitilizeAFurniture(GameObject newFurnitureBase, int newFurenitureLayer)
+    //{
+    //    if
+    //}
 
-    public GameObject GetTopFurniture()
+    public FurnitureController GetTopFurniture()
     {
         if(containFurniture.Count == 0)
         {
