@@ -32,6 +32,10 @@ public class CharacterController : MonoBehaviour
     bool isPushing = false;
     // 正在拉标旗
     bool isPulling = false;
+
+    // 正在推或者拉标旗
+    bool isPushingOrPull = false;
+
     // 正在举标旗
     bool isLifting = false;
 
@@ -98,7 +102,20 @@ public class CharacterController : MonoBehaviour
         // 准备推拉
         if (Input.GetKeyDown(KeyCode.P))
         {
+            if (isOperating)
+            {
+                if(isPushingOrPull)
+                {
+                    operatingFurnitureController = null;
 
+                    isOperating = false;
+                    isPushingOrPull = false;
+                }
+            }
+            else
+            {
+
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.W))

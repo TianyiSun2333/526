@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CharacterController.cs" />
     <Compile Include="Assets\Scripts\FurnitureController.cs" />
+    <Compile Include="Assets\Scripts\PublicUtility.cs" />
     <Compile Include="Assets\Scripts\TileController.cs" />
     <Compile Include="Assets\Scripts\WorldController.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">

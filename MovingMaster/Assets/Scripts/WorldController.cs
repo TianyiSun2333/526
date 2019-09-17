@@ -46,8 +46,7 @@ public class WorldController : MonoBehaviour
         {
             res = false;
         }
-
-        if(tileArray[paraCoordinate.x, paraCoordinate.y].GetFurnitureOnThisTile()!=null)
+        else if(tileArray[paraCoordinate.x, paraCoordinate.y].GetFurnitureOnThisTile()!=null)
         {
             res = false;
         }
@@ -55,6 +54,7 @@ public class WorldController : MonoBehaviour
         return res;
     }
 
+    // 获取目标地砖可以举起的家具的家具控制器
     public FurnitureController CheckTileLiftablle(Vector2Int paraCoordinate)
     {
         if (tileArray[paraCoordinate.x, paraCoordinate.y].GetFurnitureOnThisTile() != null)
@@ -76,13 +76,25 @@ public class WorldController : MonoBehaviour
         {
             res = false;
         }
-
-        if (tileArray[paraCoordinate.x, paraCoordinate.y].GetFurnitureOnThisTile() != null)
+        else if (tileArray[paraCoordinate.x, paraCoordinate.y].GetFurnitureOnThisTile() != null)
         {
             res = false;
         }
 
         return res;
+    }
+
+    // 获取目标地砖可以推或者拉的家具的家具控制器
+    public FurnitureController CheckTilePushableOrPullable(Vector2Int paraCoordinate)
+    {
+        if(tileArray[paraCoordinate.x, paraCoordinate.y].GetFurnitureOnThisTile() != null)
+        {
+            return tileArray[paraCoordinate.x, paraCoordinate.y].GetFurnitureOnThisTile();
+        }
+        else
+        {
+            return null;
+        }
     }
 
     public void SetFurniture(FurnitureController paraFuFurnitureController, Vector2Int paraCoordinate)

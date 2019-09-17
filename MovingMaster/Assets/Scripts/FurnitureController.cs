@@ -14,6 +14,8 @@ public class FurnitureController : MonoBehaviour
 
     //List<Vector2Int>
 
+    public 
+
     // Start is called before the first frame update
     void Start()
     {
