@@ -8,6 +8,8 @@ public class CharacterController : MonoBehaviour
 
     public GameObject operatableTarget = null;
 
+    public GameObject headAnchor = null;
+
     WorldController mainWorldController = null;
 
     // 1 向上
@@ -33,6 +35,8 @@ public class CharacterController : MonoBehaviour
     // 正在举标旗
     bool isLifting = false;
 
+    FurnitureController operatingFurnitureController = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +56,20 @@ public class CharacterController : MonoBehaviour
                 if(isLifting)
                 {
                     // 正在举着物体
+                    if(mainWorldController.CheckTileDisposable(targetCoordinate))
+                    {
+                        operatingFurnitureController.transform.SetParent(null);
+                        Vector3 newPosition = mainWorldController.GetTilePosition(targetCoordinate);
+                        newPosition.y = 1.25f;
+                        operatingFurnitureController.transform.position = newPosition;
+
+                        mainWorldController.SetFurniture(operatingFurnitureController, targetCoordinate);
+
+                        operatingFurnitureController = null;
+
+                        isOperating = false;
+                        isLifting = false;
+                    }
                 }
                 else
                 {
@@ -60,10 +78,20 @@ public class CharacterController : MonoBehaviour
             }
             else
             {
+                operatingFurnitureController = mainWorldController.CheckTileLiftablle(targetCoordinate);
 
+                if (operatingFurnitureController != null)
+                {
+                    operatingFurnitureController.transform.SetParent(this.gameObject.transform);
+                    operatingFurnitureController.transform.position = headAnchor.transform.position;
 
-                isOperating = true;
-                isLifting = true;
+                    mainWorldController.RemoveFurniture(operatingFurnitureController, targetCoordinate);
+
+                    isOperating = true;
+                    isLifting = true;
+                }
+
+                
             }
         }
 

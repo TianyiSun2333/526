@@ -13,16 +13,24 @@ public class TileController : MonoBehaviour
     //    if
     //}
 
-    public FurnitureController GetTopFurniture()
+    // 位于当前地砖上方的家具
+    FurnitureController furnitureOnThisTile = null;
+
+    // 设置位于当前地砖上方的家具家具控制器引用
+    public void SetFurnitureOnThisTile(FurnitureController newFurnitureOnThisTile)
     {
-        if(containFurniture.Count == 0)
-        {
-            return null;
-        }
-        else
-        {
-            return containFurniture[containFurniture.Count - 1];
-        }
+        furnitureOnThisTile = newFurnitureOnThisTile;
+    }
+
+    public FurnitureController GetFurnitureOnThisTile()
+    {
+        return furnitureOnThisTile;
+    }
+
+    // 清除位于当前地砖上方的家具家具控制器引用
+    public void ClearFurnitureOnThisTile()
+    {
+        furnitureOnThisTile = null;
     }
 
     // Start is called before the first frame update

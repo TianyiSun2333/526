@@ -47,11 +47,56 @@ public class WorldController : MonoBehaviour
             res = false;
         }
 
+        if(tileArray[paraCoordinate.x, paraCoordinate.y].GetFurnitureOnThisTile()!=null)
+        {
+            res = false;
+        }
+
         return res;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public FurnitureController CheckTileLiftablle(Vector2Int paraCoordinate)
+    {
+        if (tileArray[paraCoordinate.x, paraCoordinate.y].GetFurnitureOnThisTile() != null)
+        {
+            return tileArray[paraCoordinate.x, paraCoordinate.y].GetFurnitureOnThisTile();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    // 检查目标地砖可以卸下家具
+    public bool CheckTileDisposable(Vector2Int paraCoordinate)
+    {
+        bool res = true;
+
+        if (paraCoordinate.x < 0 || paraCoordinate.y < 0 || paraCoordinate.x >= worldSize || paraCoordinate.y >= worldSize)
+        {
+            res = false;
+        }
+
+        if (tileArray[paraCoordinate.x, paraCoordinate.y].GetFurnitureOnThisTile() != null)
+        {
+            res = false;
+        }
+
+        return res;
+    }
+
+    public void SetFurniture(FurnitureController paraFuFurnitureController, Vector2Int paraCoordinate)
+    {
+        tileArray[paraCoordinate.x, paraCoordinate.y].SetFurnitureOnThisTile(paraFuFurnitureController);
+    }
+
+    public void RemoveFurniture(FurnitureController paraFuFurnitureController, Vector2Int paraCoordinate)
+    {
+        tileArray[paraCoordinate.x, paraCoordinate.y].SetFurnitureOnThisTile(null);
+    }
+
+        // Start is called before the first frame update
+        void Start()
     {
         tileMaterial = new Material[2];
         tileMaterial[0] = (Material)Resources.Load("Materials/WhiteTile");

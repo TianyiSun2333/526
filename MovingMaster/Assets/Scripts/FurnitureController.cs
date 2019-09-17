@@ -6,6 +6,9 @@ public class FurnitureController : MonoBehaviour
 {
     WorldController MainWorldController = null;
 
+    // 当前家具是否位于地面上
+    public bool isOnTheGround = false;
+
     // 家具占用地砖的地砖坐标数组
     public Vector2Int[] occupyTiles = new Vector2Int[8];
 
@@ -23,6 +26,14 @@ public class FurnitureController : MonoBehaviour
         initialPosition.y = 1.25f;
 
         this.transform.position = initialPosition;
+
+        if(isOnTheGround)
+        {
+            for(int i=0;i< occupyTiles.GetLength(0); i++)
+            {
+                MainWorldController.SetFurniture(this, occupyTiles[i]);
+            }           
+        }
 
     }
 
