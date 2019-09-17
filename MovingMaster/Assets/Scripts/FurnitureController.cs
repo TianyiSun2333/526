@@ -14,7 +14,62 @@ public class FurnitureController : MonoBehaviour
 
     //List<Vector2Int>
 
-    public 
+    public void SetOccupyTiles(Vector2Int newCoordinate)
+    {
+        occupyTiles[0] = newCoordinate;
+    }
+
+
+    public bool CheckTargetOffset(Vector2Int characterCoordinate, Vector2Int paraOffset)
+    {
+        bool res = true;
+
+        // 1.先移除
+        for (int i = 0; i < occupyTiles.GetLength(0); i++)
+        {
+            MainWorldController.RemoveFurniture(this, occupyTiles[i]);
+        }
+
+        // 检查主角是否可以移动
+        if(!MainWorldController.CheckTilePassable(characterCoordinate + paraOffset))
+        {
+            res = false;
+        }
+
+        // 2.检查当前家具是否能够移动
+        for (int i = 0; i < occupyTiles.GetLength(0); i++)
+        {
+            if(!MainWorldController.CheckTileDisposable(occupyTiles[i] + paraOffset))
+            {
+                res = false;
+            }
+        }
+
+        // 3.恢复初始移除
+        for (int i = 0; i < occupyTiles.GetLength(0); i++)
+        {
+            MainWorldController.SetFurniture(this, occupyTiles[i]);
+        }
+
+        return res;
+    }
+
+    public void MoveFurnitureOffset(Vector2Int paraOffset)
+    {
+        for (int i = 0; i < occupyTiles.GetLength(0); i++)
+        {
+            MainWorldController.RemoveFurniture(this, occupyTiles[i]);
+        }
+
+        // 3.恢复初始移除
+        for (int i = 0; i < occupyTiles.GetLength(0); i++)
+        {
+            occupyTiles[i] += paraOffset;
+            MainWorldController.SetFurniture(this, occupyTiles[i]);
+        }
+
+        this.transform.position = this.transform.position + new Vector3(2.5f * paraOffset.x, 0.0f, 2.5f * paraOffset.y);
+    }
 
     // Start is called before the first frame update
     void Start()

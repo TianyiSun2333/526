@@ -240,6 +240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worldSize: 10
   tileSize: 2.5
+  DebugMaterial: {fileID: 2100000, guid: a45c40f8890aab54baef1aa4a49be894, type: 2}
 --- !u!4 &211627984
 Transform:
   m_ObjectHideFlags: 0
@@ -306,7 +307,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -330,7 +331,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534669902}
   m_LocalRotation: {x: 0.36016935, y: -0, z: -0, w: 0.932887}
-  m_LocalPosition: {x: 0, y: 10.15, z: -9.54}
+  m_LocalPosition: {x: 0, y: 14.5, z: -13.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

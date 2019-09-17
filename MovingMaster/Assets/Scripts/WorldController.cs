@@ -19,6 +19,8 @@ public class WorldController : MonoBehaviour
 
     Vector3 initialTilePosition = new Vector3();
 
+    public Material DebugMaterial = null;
+
     public Vector3 GetTilePosition(Vector2Int paraCoordinate)
     {
         return initialTilePosition + new Vector3(paraCoordinate.x * tileSize, 0.0f, paraCoordinate.y * tileSize);
@@ -100,11 +102,13 @@ public class WorldController : MonoBehaviour
     public void SetFurniture(FurnitureController paraFuFurnitureController, Vector2Int paraCoordinate)
     {
         tileArray[paraCoordinate.x, paraCoordinate.y].SetFurnitureOnThisTile(paraFuFurnitureController);
+        tileArray[paraCoordinate.x, paraCoordinate.y].gameObject.GetComponent<Renderer>().material = DebugMaterial;
     }
 
     public void RemoveFurniture(FurnitureController paraFuFurnitureController, Vector2Int paraCoordinate)
     {
         tileArray[paraCoordinate.x, paraCoordinate.y].SetFurnitureOnThisTile(null);
+        tileArray[paraCoordinate.x, paraCoordinate.y].gameObject.GetComponent<Renderer>().material = tileMaterial[(paraCoordinate.x + paraCoordinate.y) % 2];
     }
 
         // Start is called before the first frame update

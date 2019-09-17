@@ -66,6 +66,7 @@ public class CharacterController : MonoBehaviour
                         Vector3 newPosition = mainWorldController.GetTilePosition(targetCoordinate);
                         newPosition.y = 1.25f;
                         operatingFurnitureController.transform.position = newPosition;
+                        operatingFurnitureController.SetOccupyTiles(targetCoordinate);
 
                         mainWorldController.SetFurniture(operatingFurnitureController, targetCoordinate);
 
@@ -114,164 +115,320 @@ public class CharacterController : MonoBehaviour
             }
             else
             {
+                operatingFurnitureController = mainWorldController.CheckTilePushableOrPullable(targetCoordinate);
 
+                if (operatingFurnitureController != null)
+                {
+                    isOperating = true;
+                    isPushingOrPull = true;
+                }
             }
         }
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            if (characterOrientation != 1)
+            if(isPushingOrPull)
             {
-                this.transform.rotation = Quaternion.Euler(0, 0, 0);
-                characterOrientation = 1;
-                targetCoordinate = currentCoordinate + new Vector2Int(0, 1);
+                // 如果正在推或者拉
 
-                if(mainWorldController.CheckTileOperatable(targetCoordinate))
+                if(characterOrientation == 1 || characterOrientation == 3)
                 {
-                    operatableTarget.SetActive(true);
-                    operatableTarget.transform.position = mainWorldController.GetTilePosition(targetCoordinate);
-                }
-                else
-                {
-                    operatableTarget.SetActive(false);
+                    // 如果此时朝向为上或者下
+
+                    // 
+                    if(operatingFurnitureController.CheckTargetOffset(currentCoordinate, PublicUtility.UpDirection))
+                    {
+                        // 如果家具可以向上推动
+                        this.transform.position = this.transform.position + new Vector3(0.0f, 0.0f, 2.5f);
+
+                        currentCoordinate += PublicUtility.UpDirection;
+
+                        targetCoordinate = currentCoordinate + new Vector2Int(0, 1);
+
+                        if (mainWorldController.CheckTileOperatable(targetCoordinate))
+                        {
+                            operatableTarget.SetActive(true);
+                            operatableTarget.transform.position = mainWorldController.GetTilePosition(targetCoordinate);
+                        }
+                        else
+                        {
+                            operatableTarget.SetActive(false);
+                        }
+
+                        operatingFurnitureController.MoveFurnitureOffset(PublicUtility.UpDirection);
+
+                    }
+
                 }
             }
-
-            if (mainWorldController.CheckTilePassable(currentCoordinate + new Vector2Int(0,1)))
-            {               
-                this.transform.position = this.transform.position + new Vector3(0.0f, 0.0f, 2.5f);
-
-                currentCoordinate += new Vector2Int(0, 1);
-
-                targetCoordinate += new Vector2Int(0, 1);
-
-                if (mainWorldController.CheckTileOperatable(targetCoordinate))
+            else
+            {
+                if (characterOrientation != 1)
                 {
-                    operatableTarget.SetActive(true);
-                    operatableTarget.transform.position = mainWorldController.GetTilePosition(targetCoordinate);
+                    this.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    characterOrientation = 1;
+                    targetCoordinate = currentCoordinate + new Vector2Int(0, 1);
+
+                    if (mainWorldController.CheckTileOperatable(targetCoordinate))
+                    {
+                        operatableTarget.SetActive(true);
+                        operatableTarget.transform.position = mainWorldController.GetTilePosition(targetCoordinate);
+                    }
+                    else
+                    {
+                        operatableTarget.SetActive(false);
+                    }
                 }
-                else
+
+                if (mainWorldController.CheckTilePassable(currentCoordinate + new Vector2Int(0, 1)))
                 {
-                    operatableTarget.SetActive(false);
+                    this.transform.position = this.transform.position + new Vector3(0.0f, 0.0f, 2.5f);
+
+                    currentCoordinate += new Vector2Int(0, 1);
+
+                    targetCoordinate += new Vector2Int(0, 1);
+
+                    if (mainWorldController.CheckTileOperatable(targetCoordinate))
+                    {
+                        operatableTarget.SetActive(true);
+                        operatableTarget.transform.position = mainWorldController.GetTilePosition(targetCoordinate);
+                    }
+                    else
+                    {
+                        operatableTarget.SetActive(false);
+                    }
                 }
-            }            
+            }                        
         }
 
         if (Input.GetKeyDown(KeyCode.S))
         {
-            if (characterOrientation != 3)
+            if (isPushingOrPull)
             {
-                this.transform.rotation = Quaternion.Euler(0, 180, 0);
-                characterOrientation = 3;
-                targetCoordinate = currentCoordinate + new Vector2Int(0, -1);
+                // 如果正在推或者拉
 
-                if (mainWorldController.CheckTileOperatable(targetCoordinate))
+                if (characterOrientation == 1 || characterOrientation == 3)
                 {
-                    operatableTarget.SetActive(true);
-                    operatableTarget.transform.position = mainWorldController.GetTilePosition(targetCoordinate);
-                }
-                else
-                {
-                    operatableTarget.SetActive(false);
+                    // 如果此时朝向为上或者下
+
+                    // 
+                    if (operatingFurnitureController.CheckTargetOffset(currentCoordinate, PublicUtility.DownDirection))
+                    {
+                        // 如果家具可以向上推动
+                        this.transform.position = this.transform.position - new Vector3(0.0f, 0.0f, 2.5f);
+
+                        currentCoordinate += PublicUtility.DownDirection;
+
+                        targetCoordinate = currentCoordinate - new Vector2Int(0, 1);
+
+                        if (mainWorldController.CheckTileOperatable(targetCoordinate))
+                        {
+                            operatableTarget.SetActive(true);
+                            operatableTarget.transform.position = mainWorldController.GetTilePosition(targetCoordinate);
+                        }
+                        else
+                        {
+                            operatableTarget.SetActive(false);
+                        }
+
+                        operatingFurnitureController.MoveFurnitureOffset(PublicUtility.DownDirection);
+
+                    }
+
                 }
             }
-
-            if (mainWorldController.CheckTilePassable(currentCoordinate + new Vector2Int(0, -1)))
-            {               
-                this.transform.position = this.transform.position - new Vector3(0.0f, 0.0f, 2.5f);
-
-                currentCoordinate += new Vector2Int(0, -1);
-
-                targetCoordinate += new Vector2Int(0, -1);
-
-                if (mainWorldController.CheckTileOperatable(targetCoordinate))
+            else
+            {
+                if (characterOrientation != 3)
                 {
-                    operatableTarget.SetActive(true);
-                    operatableTarget.transform.position = mainWorldController.GetTilePosition(targetCoordinate);
+                    this.transform.rotation = Quaternion.Euler(0, 180, 0);
+                    characterOrientation = 3;
+                    targetCoordinate = currentCoordinate + new Vector2Int(0, -1);
+
+                    if (mainWorldController.CheckTileOperatable(targetCoordinate))
+                    {
+                        operatableTarget.SetActive(true);
+                        operatableTarget.transform.position = mainWorldController.GetTilePosition(targetCoordinate);
+                    }
+                    else
+                    {
+                        operatableTarget.SetActive(false);
+                    }
                 }
-                else
+
+                if (mainWorldController.CheckTilePassable(currentCoordinate + new Vector2Int(0, -1)))
                 {
-                    operatableTarget.SetActive(false);
+                    this.transform.position = this.transform.position - new Vector3(0.0f, 0.0f, 2.5f);
+
+                    currentCoordinate += new Vector2Int(0, -1);
+
+                    targetCoordinate += new Vector2Int(0, -1);
+
+                    if (mainWorldController.CheckTileOperatable(targetCoordinate))
+                    {
+                        operatableTarget.SetActive(true);
+                        operatableTarget.transform.position = mainWorldController.GetTilePosition(targetCoordinate);
+                    }
+                    else
+                    {
+                        operatableTarget.SetActive(false);
+                    }
                 }
-            }                
+            }                            
         }
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            if (characterOrientation != 4)
+            if(isPushingOrPull)
             {
-                this.transform.rotation = Quaternion.Euler(0, -90, 0);
-                characterOrientation = 4;
-                targetCoordinate = currentCoordinate + new Vector2Int(-1, 0);
+                // 如果正在推或者拉
 
-                if (mainWorldController.CheckTileOperatable(targetCoordinate))
+                if (characterOrientation == 2 || characterOrientation == 4)
                 {
-                    operatableTarget.SetActive(true);
-                    operatableTarget.transform.position = mainWorldController.GetTilePosition(targetCoordinate);
-                }
-                else
-                {
-                    operatableTarget.SetActive(false);
+                    // 如果此时朝向为上或者下
+
+                    // 
+                    if (operatingFurnitureController.CheckTargetOffset(currentCoordinate, PublicUtility.LeftDirection))
+                    {
+                        // 如果家具可以向上推动
+                        this.transform.position = this.transform.position - new Vector3(2.5f, 0.0f, 0.0f);
+
+                        currentCoordinate += PublicUtility.LeftDirection;
+
+                        targetCoordinate = currentCoordinate - new Vector2Int(1, 0);
+
+                        if (mainWorldController.CheckTileOperatable(targetCoordinate))
+                        {
+                            operatableTarget.SetActive(true);
+                            operatableTarget.transform.position = mainWorldController.GetTilePosition(targetCoordinate);
+                        }
+                        else
+                        {
+                            operatableTarget.SetActive(false);
+                        }
+
+                        operatingFurnitureController.MoveFurnitureOffset(PublicUtility.LeftDirection);
+
+                    }
+
                 }
             }
-
-            if (mainWorldController.CheckTilePassable(currentCoordinate + new Vector2Int(-1, 0)))
-            {               
-                this.transform.position = this.transform.position - new Vector3(2.5f, 0.0f, 0.0f);
-
-                currentCoordinate += new Vector2Int(-1, 0);
-
-                targetCoordinate += new Vector2Int(-1, 0);
-
-                if (mainWorldController.CheckTileOperatable(targetCoordinate))
+            else
+            {
+                if (characterOrientation != 4)
                 {
-                    operatableTarget.SetActive(true);
-                    operatableTarget.transform.position = mainWorldController.GetTilePosition(targetCoordinate);
+                    this.transform.rotation = Quaternion.Euler(0, -90, 0);
+                    characterOrientation = 4;
+                    targetCoordinate = currentCoordinate + new Vector2Int(-1, 0);
+
+                    if (mainWorldController.CheckTileOperatable(targetCoordinate))
+                    {
+                        operatableTarget.SetActive(true);
+                        operatableTarget.transform.position = mainWorldController.GetTilePosition(targetCoordinate);
+                    }
+                    else
+                    {
+                        operatableTarget.SetActive(false);
+                    }
                 }
-                else
+
+                if (mainWorldController.CheckTilePassable(currentCoordinate + new Vector2Int(-1, 0)))
                 {
-                    operatableTarget.SetActive(false);
+                    this.transform.position = this.transform.position - new Vector3(2.5f, 0.0f, 0.0f);
+
+                    currentCoordinate += new Vector2Int(-1, 0);
+
+                    targetCoordinate += new Vector2Int(-1, 0);
+
+                    if (mainWorldController.CheckTileOperatable(targetCoordinate))
+                    {
+                        operatableTarget.SetActive(true);
+                        operatableTarget.transform.position = mainWorldController.GetTilePosition(targetCoordinate);
+                    }
+                    else
+                    {
+                        operatableTarget.SetActive(false);
+                    }
                 }
-            }              
+            }                        
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
-            if (characterOrientation != 2)
+            if (isPushingOrPull)
             {
-                this.transform.rotation = Quaternion.Euler(0, 90, 0);
-                characterOrientation = 2;
-                targetCoordinate = currentCoordinate + new Vector2Int(1, 0);
+                // 如果正在推或者拉
 
-                if (mainWorldController.CheckTileOperatable(targetCoordinate))
+                if (characterOrientation == 2 || characterOrientation == 4)
                 {
-                    operatableTarget.SetActive(true);
-                    operatableTarget.transform.position = mainWorldController.GetTilePosition(targetCoordinate);
+                    // 如果此时朝向为上或者下
+
+                    // 
+                    if (operatingFurnitureController.CheckTargetOffset(currentCoordinate, PublicUtility.RightDirection))
+                    {
+                        // 如果家具可以向上推动
+                        this.transform.position = this.transform.position + new Vector3(2.5f, 0.0f, 0.0f);
+
+                        currentCoordinate += PublicUtility.RightDirection;
+
+                        targetCoordinate = currentCoordinate + new Vector2Int(1, 0);
+
+                        if (mainWorldController.CheckTileOperatable(targetCoordinate))
+                        {
+                            operatableTarget.SetActive(true);
+                            operatableTarget.transform.position = mainWorldController.GetTilePosition(targetCoordinate);
+                        }
+                        else
+                        {
+                            operatableTarget.SetActive(false);
+                        }
+
+                        operatingFurnitureController.MoveFurnitureOffset(PublicUtility.RightDirection);
+
+                    }
+
                 }
-                else
+            }
+            else
+            {
+                if (characterOrientation != 2)
                 {
-                    operatableTarget.SetActive(false);
+                    this.transform.rotation = Quaternion.Euler(0, 90, 0);
+                    characterOrientation = 2;
+                    targetCoordinate = currentCoordinate + new Vector2Int(1, 0);
+
+                    if (mainWorldController.CheckTileOperatable(targetCoordinate))
+                    {
+                        operatableTarget.SetActive(true);
+                        operatableTarget.transform.position = mainWorldController.GetTilePosition(targetCoordinate);
+                    }
+                    else
+                    {
+                        operatableTarget.SetActive(false);
+                    }
+                }
+
+                if (mainWorldController.CheckTilePassable(currentCoordinate + new Vector2Int(1, 0)))
+                {
+                    this.transform.position = this.transform.position + new Vector3(2.5f, 0.0f, 0.0f);
+
+                    currentCoordinate += new Vector2Int(1, 0);
+
+                    targetCoordinate += new Vector2Int(1, 0);
+
+                    if (mainWorldController.CheckTileOperatable(targetCoordinate))
+                    {
+                        operatableTarget.SetActive(true);
+                        operatableTarget.transform.position = mainWorldController.GetTilePosition(targetCoordinate);
+                    }
+                    else
+                    {
+                        operatableTarget.SetActive(false);
+                    }
                 }
             }
 
-            if (mainWorldController.CheckTilePassable(currentCoordinate + new Vector2Int(1, 0)))
-            {               
-                this.transform.position = this.transform.position + new Vector3(2.5f, 0.0f, 0.0f);
-
-                currentCoordinate += new Vector2Int(1, 0);
-
-                targetCoordinate += new Vector2Int(1, 0);
-
-                if (mainWorldController.CheckTileOperatable(targetCoordinate))
-                {
-                    operatableTarget.SetActive(true);
-                    operatableTarget.transform.position = mainWorldController.GetTilePosition(targetCoordinate);
-                }
-                else
-                {
-                    operatableTarget.SetActive(false);
-                }
-            }                
+                          
         }
     }
 }
