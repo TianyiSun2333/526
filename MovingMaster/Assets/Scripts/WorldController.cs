@@ -49,7 +49,7 @@ public class WorldController : MonoBehaviour
             res = false;
         }
 
-        if (tileArray[paraCoordinate.x, paraCoordinate.y].GetFurnitureOnThisTile()!=null)
+        else if (tileArray[paraCoordinate.x, paraCoordinate.y].GetFurnitureOnThisTile()!=null)
         {
             res = false;
         }
