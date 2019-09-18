@@ -149,6 +149,8 @@ public class WorldController : MonoBehaviour
                 currentTile.GetComponent<Renderer>().material = tileMaterial[(i + j) % 2];
 
                 tileArray[i, j] = currentTile.GetComponent<TileController>();
+
+                currentTile.GetComponent<TileController>().tileCordinate = new Vector2Int(i,j);
             }
         }
     }

@@ -16,6 +16,8 @@ public class TileController : MonoBehaviour
     // 位于当前地砖上方的家具
     FurnitureController furnitureOnThisTile = null;
 
+    public Vector2Int tileCordinate;
+
     // 设置位于当前地砖上方的家具家具控制器引用
     public void SetFurnitureOnThisTile(FurnitureController newFurnitureOnThisTile)
     {

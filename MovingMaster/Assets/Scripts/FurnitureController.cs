@@ -19,7 +19,7 @@ public class FurnitureController : MonoBehaviour
         occupyTiles[0] = newCoordinate;
     }
 
-
+    //检查当前家具移动目标位置是否合法
     public bool CheckTargetOffset(Vector2Int characterCoordinate, Vector2Int paraOffset)
     {
         bool res = true;

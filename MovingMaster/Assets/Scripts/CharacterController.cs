@@ -24,8 +24,6 @@ public class CharacterController : MonoBehaviour
     // 主角的操作目标位置
     Vector2Int targetCoordinate = new Vector2Int(0, 1);
 
-    public int[] fuck = new int[1];
-
     // 正在执行动作标旗
     bool isOperating = false;
     // 正在推标旗
