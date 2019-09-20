@@ -58,16 +58,8 @@ public class CharacterController : MonoBehaviour
                 if(isLifting)
                 {
                     // 正在举着物体
-                    if(mainWorldController.CheckTileDisposable(targetCoordinate))
-                    {
-                        operatingFurnitureController.transform.SetParent(null);
-                        Vector3 newPosition = mainWorldController.GetTilePosition(targetCoordinate);
-                        newPosition.y = 1.25f;
-                        operatingFurnitureController.transform.position = newPosition;
-                        operatingFurnitureController.SetOccupyTiles(targetCoordinate);
-
-                        mainWorldController.SetFurniture(operatingFurnitureController, targetCoordinate);
-
+                    if(mainWorldController.TryToDisposeFurniture(operatingFurnitureController, targetCoordinate))
+                    {                       
                         operatingFurnitureController = null;
 
                         isOperating = false;
@@ -88,13 +80,11 @@ public class CharacterController : MonoBehaviour
                     operatingFurnitureController.transform.SetParent(this.gameObject.transform);
                     operatingFurnitureController.transform.position = headAnchor.transform.position;
 
-                    mainWorldController.RemoveFurniture(operatingFurnitureController, targetCoordinate);
+                    operatingFurnitureController.DeregisterFurniture();
 
                     isOperating = true;
                     isLifting = true;
-                }
-
-                
+                }                
             }
         }
 
@@ -134,14 +124,23 @@ public class CharacterController : MonoBehaviour
                     // 如果此时朝向为上或者下
 
                     // 
-                    if(operatingFurnitureController.CheckTargetOffset(currentCoordinate, PublicUtility.UpDirection))
+                    if(operatingFurnitureController.TryToMoveFurnitureOffset(currentCoordinate, PublicUtility.UpDirection))
                     {
                         // 如果家具可以向上推动
                         this.transform.position = this.transform.position + new Vector3(0.0f, 0.0f, 2.5f);
 
                         currentCoordinate += PublicUtility.UpDirection;
 
-                        targetCoordinate = currentCoordinate + new Vector2Int(0, 1);
+
+
+                        if(characterOrientation == 1)
+                        {
+                            targetCoordinate = currentCoordinate + new Vector2Int(0, 1);
+                        }
+                        else
+                        {
+                            targetCoordinate = currentCoordinate - new Vector2Int(0, 1);
+                        }                        
 
                         if (mainWorldController.CheckTileOperatable(targetCoordinate))
                         {
@@ -152,8 +151,6 @@ public class CharacterController : MonoBehaviour
                         {
                             operatableTarget.SetActive(false);
                         }
-
-                        operatingFurnitureController.MoveFurnitureOffset(PublicUtility.UpDirection);
 
                     }
 
@@ -210,14 +207,21 @@ public class CharacterController : MonoBehaviour
                     // 如果此时朝向为上或者下
 
                     // 
-                    if (operatingFurnitureController.CheckTargetOffset(currentCoordinate, PublicUtility.DownDirection))
+                    if (operatingFurnitureController.TryToMoveFurnitureOffset(currentCoordinate, PublicUtility.DownDirection))
                     {
                         // 如果家具可以向上推动
                         this.transform.position = this.transform.position - new Vector3(0.0f, 0.0f, 2.5f);
 
                         currentCoordinate += PublicUtility.DownDirection;
 
-                        targetCoordinate = currentCoordinate - new Vector2Int(0, 1);
+                        if(characterOrientation == 3)
+                        {
+                            targetCoordinate = currentCoordinate - new Vector2Int(0, 1);
+                        }
+                        else
+                        {
+                            targetCoordinate = currentCoordinate + new Vector2Int(0, 1);
+                        }                        
 
                         if (mainWorldController.CheckTileOperatable(targetCoordinate))
                         {
@@ -228,8 +232,6 @@ public class CharacterController : MonoBehaviour
                         {
                             operatableTarget.SetActive(false);
                         }
-
-                        operatingFurnitureController.MoveFurnitureOffset(PublicUtility.DownDirection);
 
                     }
 
@@ -286,14 +288,21 @@ public class CharacterController : MonoBehaviour
                     // 如果此时朝向为上或者下
 
                     // 
-                    if (operatingFurnitureController.CheckTargetOffset(currentCoordinate, PublicUtility.LeftDirection))
+                    if (operatingFurnitureController.TryToMoveFurnitureOffset(currentCoordinate, PublicUtility.LeftDirection))
                     {
                         // 如果家具可以向上推动
                         this.transform.position = this.transform.position - new Vector3(2.5f, 0.0f, 0.0f);
 
                         currentCoordinate += PublicUtility.LeftDirection;
 
-                        targetCoordinate = currentCoordinate - new Vector2Int(1, 0);
+                        if(characterOrientation == 4)
+                        {
+                            targetCoordinate = currentCoordinate - new Vector2Int(1, 0);
+                        }
+                        else
+                        {
+                            targetCoordinate = currentCoordinate + new Vector2Int(1, 0);
+                        }                        
 
                         if (mainWorldController.CheckTileOperatable(targetCoordinate))
                         {
@@ -304,9 +313,6 @@ public class CharacterController : MonoBehaviour
                         {
                             operatableTarget.SetActive(false);
                         }
-
-                        operatingFurnitureController.MoveFurnitureOffset(PublicUtility.LeftDirection);
-
                     }
 
                 }
@@ -362,14 +368,22 @@ public class CharacterController : MonoBehaviour
                     // 如果此时朝向为上或者下
 
                     // 
-                    if (operatingFurnitureController.CheckTargetOffset(currentCoordinate, PublicUtility.RightDirection))
+                    if (operatingFurnitureController.TryToMoveFurnitureOffset(currentCoordinate, PublicUtility.RightDirection))
                     {
                         // 如果家具可以向上推动
                         this.transform.position = this.transform.position + new Vector3(2.5f, 0.0f, 0.0f);
 
                         currentCoordinate += PublicUtility.RightDirection;
 
-                        targetCoordinate = currentCoordinate + new Vector2Int(1, 0);
+                        if(characterOrientation == 2)
+                        {
+                            targetCoordinate = currentCoordinate + new Vector2Int(1, 0);
+                        }
+                        else
+                        {
+                            targetCoordinate = currentCoordinate - new Vector2Int(1, 0);
+                        }
+                        
 
                         if (mainWorldController.CheckTileOperatable(targetCoordinate))
                         {
@@ -380,9 +394,6 @@ public class CharacterController : MonoBehaviour
                         {
                             operatableTarget.SetActive(false);
                         }
-
-                        operatingFurnitureController.MoveFurnitureOffset(PublicUtility.RightDirection);
-
                     }
 
                 }
