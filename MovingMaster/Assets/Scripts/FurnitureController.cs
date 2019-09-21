@@ -244,6 +244,13 @@ public class FurnitureController : MonoBehaviour
 
             this.transform.position = this.transform.position + new Vector3(2.5f * paraOffset.x, 0.0f, 2.5f * paraOffset.y);
         }
+        else
+        {
+            for (int i = 0; i < occupyTiles.GetLength(0); i++)
+            {
+                MainWorldController.RegisterFurnitureOnSingleTile(this, occupyTiles[i]);
+            }
+        }
 
         return res;
     }

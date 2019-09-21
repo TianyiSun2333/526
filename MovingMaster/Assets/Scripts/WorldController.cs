@@ -213,12 +213,16 @@ public class WorldController : MonoBehaviour
 
     public void RegisterFurnitureOnSingleTile(FurnitureController paraFurnitureController, Vector2Int paraCoordinate)
     {
+        //Debug.Log(paraFurnitureController.gameObject.name + " Register " + paraCoordinate);
+
         tileArray[paraCoordinate.x, paraCoordinate.y].SetFurnitureOnThisTile(paraFurnitureController);
         tileArray[paraCoordinate.x, paraCoordinate.y].gameObject.GetComponent<Renderer>().material = DebugMaterial;
     }
 
     public void DeregisterFurnitureOnSingleTile(FurnitureController paraFurnitureController, Vector2Int paraCoordinate)
     {
+        //Debug.Log(paraFurnitureController.gameObject.name + " Deregister " + paraCoordinate);
+
         tileArray[paraCoordinate.x, paraCoordinate.y].SetFurnitureOnThisTile(null);
         tileArray[paraCoordinate.x, paraCoordinate.y].gameObject.GetComponent<Renderer>().material = tileMaterial[(paraCoordinate.x + paraCoordinate.y) % 2];
     }
