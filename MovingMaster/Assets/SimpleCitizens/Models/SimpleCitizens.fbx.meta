@@ -90,6 +90,7 @@ ModelImporter:
     7400002: Walk
     7400004: Run
     9500000: //RootNode
+    11100000: //RootNode
     13700000: Base_mesh
     13700002: Biker_mesh
     13700004: Cap_mesh
@@ -121,15 +122,12 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
-      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
-      improve retargeting quality.\n\t'Body_jnt' has translation animation that will
-      be discarded.\n"
+    animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 0
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -259,135 +257,7 @@ ModelImporter:
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2
-    human:
-    - boneName: Hips_jnt
-      humanName: Hips
-      limit:
-        min: {x: -40, y: -40, z: -40}
-        max: {x: 40, y: 40, z: 40}
-        value: {x: 0.015238949, y: 0, z: 0.0076194745}
-        length: 0.01904869
-        modified: 1
-    - boneName: UpperLeg_Left_jnt
-      humanName: LeftUpperLeg
-      limit:
-        min: {x: -60.000004, y: -60.000004, z: -90}
-        max: {x: 60.000004, y: 60.000004, z: 50}
-        value: {x: 0.29961723, y: 0, z: 0.14980862}
-        length: 0.37452167
-        modified: 1
-    - boneName: UpperLeg_Right_jnt
-      humanName: RightUpperLeg
-      limit:
-        min: {x: -60.000004, y: -60.000004, z: -90}
-        max: {x: 60.000004, y: 60.000004, z: 50}
-        value: {x: 0.29961747, y: 0, z: 0.14980873}
-        length: 0.37452197
-        modified: 1
-    - boneName: LowerLeg_Left_jnt
-      humanName: LeftLowerLeg
-      limit:
-        min: {x: -90, y: 0, z: -80}
-        max: {x: 90, y: 0, z: 80}
-        value: {x: 0.3109949, y: 0, z: 0.15549745}
-        length: 0.38874376
-        modified: 1
-    - boneName: LowerLeg_Right_jnt
-      humanName: RightLowerLeg
-      limit:
-        min: {x: -90, y: 0, z: -80}
-        max: {x: 90, y: 0, z: 80}
-        value: {x: 0.31099507, y: 0, z: 0.15549754}
-        length: 0.38874397
-        modified: 1
-    - boneName: Foot_Left_jnt
-      humanName: LeftFoot
-      limit:
-        min: {x: 0, y: -30.000002, z: -50}
-        max: {x: 0, y: 30.000002, z: 50}
-        value: {x: 0.122244045, y: 0, z: 0.061122023}
-        length: 0.15280509
-        modified: 1
-    - boneName: Foot_Right_jnt
-      humanName: RightFoot
-      limit:
-        min: {x: 0, y: -30.000002, z: -50}
-        max: {x: 0, y: 30.000002, z: 50}
-        value: {x: 0.12224402, y: 0, z: 0.06112201}
-        length: 0.15280506
-        modified: 1
-    - boneName: Body_jnt
-      humanName: Spine
-      limit:
-        min: {x: -40, y: -40, z: -40}
-        max: {x: 40, y: 40, z: 40}
-        value: {x: 0.5362599, y: 0, z: 0.26812994}
-        length: 0.67032516
-        modified: 1
-    - boneName: Spine_jnt
-      humanName: Chest
-      limit:
-        min: {x: -40, y: -40, z: -40}
-        max: {x: 40, y: 40, z: 40}
-        value: {x: 0.24850076, y: 0, z: 0.12425038}
-        length: 0.31062603
-        modified: 1
-    - boneName: Head_jnt
-      humanName: Head
-      limit:
-        min: {x: -40, y: -40, z: -40}
-        max: {x: 40, y: 40, z: 40}
-        value: {x: 0.12425038, y: 0, z: 0.06212519}
-        length: 0.15531301
-        modified: 1
-    - boneName: UpperArm_Left_jnt
-      humanName: LeftUpperArm
-      limit:
-        min: {x: -90, y: -100, z: -60.000004}
-        max: {x: 90, y: 100, z: 100}
-        value: {x: 0.3769503, y: 0, z: 0.18847515}
-        length: 0.471188
-        modified: 1
-    - boneName: UpperArm_Right_jnt
-      humanName: RightUpperArm
-      limit:
-        min: {x: -90, y: -100, z: -60.000004}
-        max: {x: 90, y: 100, z: 100}
-        value: {x: 0.3769518, y: 0, z: 0.1884759}
-        length: 0.47118992
-        modified: 1
-    - boneName: LowerArm_Left_jnt
-      humanName: LeftLowerArm
-      limit:
-        min: {x: -90, y: 0, z: -80}
-        max: {x: 90, y: 0, z: 80}
-        value: {x: 0.35223988, y: 0, z: 0.17611994}
-        length: 0.4403
-        modified: 1
-    - boneName: LowerArm_Right_jnt
-      humanName: RightLowerArm
-      limit:
-        min: {x: -90, y: 0, z: -80}
-        max: {x: 90, y: 0, z: 80}
-        value: {x: 0.35223988, y: 0, z: 0.17611994}
-        length: 0.4403
-        modified: 1
-    - boneName: Hand_Left_jnt
-      humanName: LeftHand
-      limit:
-        min: {x: 0, y: -40, z: -80}
-        max: {x: 0, y: 40, z: 80}
-        value: {x: 0.17611994, y: 0, z: 0.08805997}
-        length: 0.22015
-        modified: 1
-    - boneName: Hand_Right_jnt
-      humanName: RightHand
-      limit:
-        min: {x: 0, y: -40, z: -80}
-        max: {x: 0, y: 40, z: 80}
-        value: {x: 0.17611994, y: 0, z: 0.08805997}
-        length: 0.22015
-        modified: 1
+    human: []
     skeleton:
     - name: SimpleCitizens
       parentName: 
@@ -496,7 +366,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 3
+  animationType: 1
   humanoidOversampling: 1
   additionalBone: 1
   userData: 
