@@ -234,22 +234,22 @@ public class CharacterController : MonoBehaviour
 
         if(!isMoving)
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKey(KeyCode.W))
             {
                 CharacterMoveUpdate(0);
             }
 
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKey(KeyCode.S))
             {
                 CharacterMoveUpdate(2);
             }
 
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKey(KeyCode.A))
             {
                 CharacterMoveUpdate(3);
             }
 
-            if (Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKey(KeyCode.D))
             {
                 CharacterMoveUpdate(1);
             }

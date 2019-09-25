@@ -38,6 +38,29 @@ public class FurnitureController : MonoBehaviour
     // 当前家具下方的家具引用
     public GameObject furnitureUnderCF = null;
 
+    // Flag of wether this furniture is moving
+    bool isMoving = false;
+
+    // The moving speed of this furniture.
+    float movingSpeed = 6.0f;
+
+    Vector3 initialPosition = new Vector3();
+    Vector3 targetPosition = new Vector3();
+
+    Vector3 direction = new Vector3();
+
+    public void SetFurnitureMove(Vector3 newTargetPosition)
+    {
+        if(!isMoving)
+        {
+            initialPosition = this.transform.position;
+            targetPosition = newTargetPosition;
+
+            direction = Vector3.Normalize(targetPosition - initialPosition);
+            isMoving = true;
+        }
+    }
+
     public void SetIsOTheGround(bool newIsOnTheGround)
     {
         isOnTheGround = newIsOnTheGround;
@@ -242,7 +265,9 @@ public class FurnitureController : MonoBehaviour
                 }
             }
 
-            this.transform.position = this.transform.position + new Vector3(2.5f * paraOffset.x, 0.0f, 2.5f * paraOffset.y);
+            SetFurnitureMove(this.transform.position + new Vector3(2.5f * paraOffset.x, 0.0f, 2.5f * paraOffset.y));
+
+            //this.transform.position = this.transform.position + new Vector3(2.5f * paraOffset.x, 0.0f, 2.5f * paraOffset.y);
         }
         else
         {
@@ -259,7 +284,9 @@ public class FurnitureController : MonoBehaviour
 
     public void MoveFurnitureOnCFByOffset(Vector2Int paraOffset)
     {
-        this.transform.position = this.transform.position + new Vector3(2.5f * paraOffset.x, 0.0f, 2.5f * paraOffset.y);
+        //this.transform.position = this.transform.position + new Vector3(2.5f * paraOffset.x, 0.0f, 2.5f * paraOffset.y);
+
+        SetFurnitureMove(this.transform.position + new Vector3(2.5f * paraOffset.x, 0.0f, 2.5f * paraOffset.y));
 
         for (int i = 0; i < occupyTiles.GetLength(0); i++)
         {
@@ -298,6 +325,25 @@ public class FurnitureController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(isMoving)
+        {
+            Vector3 currentFramePosition = this.transform.position;
+
+            Vector3 nextFramePosition = this.transform.position + direction * Time.deltaTime * movingSpeed;
+
+            float dot = Vector3.Dot(targetPosition - currentFramePosition, nextFramePosition - targetPosition);
+
+            if(dot >= 0)
+            {
+                this.transform.position = targetPosition;
+
+                isMoving = false;
+            }
+            else
+            {
+                this.transform.position = nextFramePosition;
+            }
+
+        }
     }
 }
