@@ -254,18 +254,12 @@ MonoBehaviour:
   canBePushed: 1
   canBeLifted: 1
   isOnTheGround: 0
-  occupyTiles:
-  - {x: 2, y: 2}
+  tilesOffset:
+  - {x: 0, y: 0}
+  baseTile: {x: 2, y: 2}
   itemOnOccupyTile:
   - {fileID: 0}
   anchorOfOccupyTile:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 0}
   furnitureUnderCF: {fileID: 706770397}
 --- !u!65 &33133632
@@ -4811,8 +4805,9 @@ MonoBehaviour:
   canBePushed: 1
   canBeLifted: 1
   isOnTheGround: 1
-  occupyTiles:
-  - {x: 2, y: 2}
+  tilesOffset:
+  - {x: 0, y: 0}
+  baseTile: {x: 2, y: 2}
   itemOnOccupyTile:
   - {fileID: 33133630}
   anchorOfOccupyTile:
@@ -10175,8 +10170,9 @@ MonoBehaviour:
   canBePushed: 1
   canBeLifted: 1
   isOnTheGround: 1
-  occupyTiles:
-  - {x: 4, y: 2}
+  tilesOffset:
+  - {x: 0, y: 0}
+  baseTile: {x: 4, y: 2}
   itemOnOccupyTile:
   - {fileID: 0}
   anchorOfOccupyTile:
@@ -11227,10 +11223,11 @@ MonoBehaviour:
   canBePushed: 1
   canBeLifted: 0
   isOnTheGround: 1
-  occupyTiles:
-  - {x: 5, y: 4}
-  - {x: 6, y: 4}
-  - {x: 7, y: 4}
+  tilesOffset:
+  - {x: 0, y: 0}
+  - {x: 1, y: 0}
+  - {x: 2, y: 0}
+  baseTile: {x: 5, y: 4}
   itemOnOccupyTile:
   - {fileID: 0}
   - {fileID: 0}
