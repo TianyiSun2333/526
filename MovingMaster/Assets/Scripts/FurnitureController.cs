@@ -27,7 +27,9 @@ public class FurnitureController : MonoBehaviour
     //=================================================================
 
     // 家具占用地砖的地砖坐标数组
-    public Vector2Int[] occupyTiles = new Vector2Int[8];
+    public Vector2Int[] tilesOffset = new Vector2Int[8];
+    public Vector2Int baseTile;
+    private Vector2Int[] occupyTiles;
 
     // 当前家具每个占用地砖位置上面放置的家具
     public GameObject[] itemOnOccupyTile = new GameObject[8];
@@ -302,6 +304,11 @@ public class FurnitureController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        occupyTiles = new Vector2Int[tilesOffset.Length];
+        for(int i = 0; i < tilesOffset.Length; i++)
+        {
+            occupyTiles[i] = baseTile + tilesOffset[i];
+        }
         Debug.Log(occupyTiles.GetLength(0));
 
         MainWorldController = GameObject.Find("WorldManager").GetComponent<WorldController>();
